@@ -1,0 +1,9 @@
+DEPENDENCIES
+  java_se (~> 8.131.0)
+  tomcat_v8
+    path: .
+    metadata: true
+
+GRAPH
+  java_se (8.131.0)
+  tomcat_v8 (0.1.0)

@@ -1,0 +1,22 @@
+{
+  "name": "tomcat",
+  "description": "Runs tomcat with oracle JDK",
+  "override_attributes": {
+    "java": {
+      "jdk_version": 8,
+      "install_flavor": "oracle",
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "tomcat": {
+      "base_version": 7,
+      "port": 8081
+    }
+  },
+  "run_list": [
+    "recipe[apt]",
+    "recipe[java]",
+    "recipe[tomcat]"
+  ]
+}

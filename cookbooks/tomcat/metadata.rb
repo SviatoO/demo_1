@@ -8,6 +8,10 @@ issues_url        'https://github.com/sous-chefs/tomcat/issues'
 chef_version      '>= 13'
 version           '4.0.0'
 
+depends 'tomcat'
+
+depends 'java_se'
+
 %w(ubuntu debian redhat centos suse opensuseleap scientific oracle amazon zlinux).each do |os|
   supports os
 end

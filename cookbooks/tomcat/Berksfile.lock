@@ -1,11 +1,7 @@
 DEPENDENCIES
-  apt
-  java
+  java_se (~> 8.131.0)
   tomcat
 
 GRAPH
-  apt (7.3.0)
-  java (8.4.0)
-    line (>= 0.0.0)
-  line (2.9.1)
+  java_se (8.131.0)
   tomcat (4.0.0)

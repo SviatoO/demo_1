@@ -19,8 +19,42 @@
 
 #Chef::Log.warn('The default tomcat recipe does nothing. See the readme for information on using the tomcat resources')
 
+user  'chefuser'
 
+group 'chef_group' do
+  members 'chefuser'
+  action :create
+end
 
-tomcat_install 'helloworld' do
-  version '8.0.36'
+tomcat_install 'dirworld' do
+  version '8.5.54'
+  dir_mode '0755'
+  tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz'
+  tomcat_user 'chef_user'
+  tomcat_group 'chef_group'
+  create_symlink false
+end
+
+tomcat_service 'dirworld' do
+  action  :start
+  service_template_cookbook  'tomcat'
+end
+
+template '/opt/tomcat_dirworld_8_5_54/conf/server.xml' do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    shutdown_port: 8006,
+    http_port: 8081,
+    https_port: 8444
+  )
+  notifies :restart, 'tomcat_service[dirworld]'
+end
+
+remote_file '/opt/tomcat_dirworld_8_5_54/webapps/sample.war' do
+  owner 'chef_user'
+  mode '0644'
+  source 'https://tomcat.apache.org/tomcat-8.5-doc/appdev/sample/sample.war'
+  checksum '89b33caa5bf4cfd235f060c396cb1a5acb2734a1366db325676f48c5f5ed92e5'
 end
